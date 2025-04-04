@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Public Incident Reporting System - Log In</title>
+    <link rel="stylesheet" href="admin-login.css">
+    <script type="text/javascript" src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div class="top-left">
+                <img src="images/fieldincident.png" alt="">
+            </div>
+            <div class="top-right">
+                <form class="form" id="loginForm">
+                    <div class="form-text">
+                        <img src="images/logo.png" alt="">
+                        <h1>Admin LogIn</h1>
+                    </div>
+                    <div class="input-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required placeholder="Enter your email address">
+                        <p id="emailError" class="error-message"></p>
+                    </div>
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                        <img src="images/hide.png" class="eye-icon" alt="Toggle Password" id="eyeicon"
+                            draggable="false">
+                        <div id="passwordError" class="error-message"></div>
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="login-btn" id="loginBtn">Login</button>
+                    </div>
+                    <div class="alert" id="loginSuccess">Login successful</div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+
+    <script>
+        // Show Password toggle functionality
+        const passwordField = document.getElementById("loginPassword");
+        const eyeIconPassword = document.getElementById("eyeicon");
+
+        eyeIconPassword.addEventListener('click', function () {
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIconPassword.src = "images/show.png"; // Change to 'show' icon
+            } else {
+                passwordField.type = "password";
+                eyeIconPassword.src = "images/hide.png"; // Change to 'hide' icon
+            }
+        });
+
+        // Handle form submission and login validation
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();  // Prevent form submission
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const loginSuccess = document.getElementById('loginSuccess');
+
+            // Clear any previous error messages
+            emailError.textContent = '';
+            passwordError.textContent = '';
+
+            // Prepare data to send
+            const loginData = {
+                email: email,
+                password: password
+            };
+
+            // Send the data to PHP login script using Fetch API
+            fetch('php/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        loginSuccess.classList.add('show');  // Show the success alert
+                        // Redirect to the home page after a delay
+                        setTimeout(function () {
+                            window.location.href = data.redirect_url;
+                        }, 1500);
+                    } else {
+                        // Show error message
+                        if (data.message === 'User not found') {
+                            emailError.textContent = data.message;
+                        } else if (data.message === 'Invalid password') {
+                            passwordError.textContent = data.message;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+</body>
+
+</html>

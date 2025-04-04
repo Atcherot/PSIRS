@@ -1,0 +1,533 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --base-color: #fff;
+    --base-variant: #0b0c18;
+    --outline: #fff;
+    --table-border: #ddd;
+    --table-head: #f9f9f9;
+}
+
+.darkmode {
+    --base-color: #121212;
+    --base-variant: #fff;
+    --outline: #fff;
+    --table-border: #ddd;
+    --table-head: #f9f9f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    background: var(--base-variant);
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-rows: 180px 1fr;
+    height: 100vh;
+    background: var(--base-variant);
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+#active {
+    background: var(--base-color);
+    color: var(--base-variant);
+}
+
+#active i {
+    font-weight: 500;
+    color: var(--base-variant);
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    width: 200px;
+}
+
+.tabs {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 12px;
+}
+
+.upper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+}
+
+.upper a,
+.lower a {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    color: var(--base-color);
+    width: 100%;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.upper a:hover,
+.lower a:hover {
+    background: var(--base-color);
+    color: var(--base-variant);
+}
+
+.upper a:hover>i,
+.lower a:hover>i {
+    color: var(--base-variant);
+}
+
+
+.upper i,
+.lower i {
+    font-size: 22px;
+    margin-right: 8px;
+    color: var(--base-color);
+}
+
+.lower {
+    position: relative;
+    height: auto;
+}
+
+.lower a {
+    position: absolute;
+    bottom: 0;
+}
+
+main {
+    display: grid;
+    grid-template-rows: 70px 1fr;
+    padding: 16px 32px;
+    gap: 16px;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-radius: 4px;
+    background: var(--base-variant);
+    border: 1px solid var(--outline);
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.title h1 {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Inter';
+    color: var(--base-color);
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.options i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: var(--base-color);
+    transition: 0.3s;
+}
+
+.options i:hover {
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+.options a {
+    font-size: 28px;
+    color: var(--base-color);
+}
+
+/* DARKMODE */
+#theme-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    background: var(--base-variant);
+}
+
+#theme-switch svg {
+    fill: var(--base-color);
+    transition: 0.3s;
+}
+
+#theme-switch svg:last-child {
+    display: none;
+}
+
+.darkmode #theme-switch svg:first-child {
+    display: none;
+}
+
+.darkmode #theme-switch svg:last-child {
+    display: block;
+}
+
+#theme-switch svg:hover {
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+section {
+    display: grid;
+    grid-template-rows: 70px 1fr;
+    gap: 16px;
+    font-family: "poppins";
+}
+
+/* FILTER */
+.top {
+    display: grid;
+    grid-template-columns: 1fr 0.2fr;
+    border-radius: 4px;
+    background: var(--base-variant);
+    border: 1px solid var(--outline);
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    padding: 0 16px;
+    margin-bottom: 20px;
+}
+
+/* Search Bar */
+.search-bar {
+    padding: 10px;
+    width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Filter Dropdown */
+.filter-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Search Button */
+.search-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--base-variant);
+    background: var(--base-color);
+    transition: 0.3s;
+}
+
+.search-button:hover {
+    transform: scale(105%);
+    box-shadow: 0 0 0 2px var(--base-variant), 0 0 0 3px var(--base-color);
+}
+
+/* Delete Reports */
+.delete-reports {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.delete-all button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--base-variant);
+    background: var(--base-color);
+    transition: 0.3s;
+}
+
+.delete-all button:hover {
+    transform: scale(105%);
+    box-shadow: 0 0 0 2px var(--base-variant), 0 0 0 3px var(--base-color);
+}
+
+.delete-multiple i {
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--base-color);
+    transition: 0.3s;
+}
+
+.delete-multiple i:hover {
+    transform: scale(110%);
+}
+
+/* TABLE */
+.bottom {
+    display: grid;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    border: 1px solid var(--outline);
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.bottom .box {
+    padding: 20px;
+    background: var(--base-variant);
+}
+
+table {
+    text-align: center;
+    width: 100%;
+    min-width: 600px;
+    font-size: 18px;
+    border-collapse: collapse;
+    border: 1px solid var(--table-border);
+}
+table.dataTable thead th {
+    text-align: center !important;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+thead th {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: "roboto condensed";
+}
+
+thead th,
+tbody td {
+    text-align: center;
+    padding: 10px;
+}
+
+thead th:first-child,
+tbody td:first-child {
+    width: 160px;
+    max-width: 160px;
+    min-width: 160px;
+    text-align: center;
+}
+
+thead th {
+    background-color: var(--table-head);
+}
+
+tbody td {
+    padding: 12px;
+    color: var(--base-color);
+    border-top: 1px solid var(--table-border);
+    border-bottom: 1px solid var(--table-border);
+}
+
+.user-table td:first-child {
+    border-left: 1px solid var(--border);
+}
+
+.user-table td:last-child {
+    border-right: 1px solid var(--border);
+}
+
+.reports a {
+    text-decoration: none;
+}
+
+.action-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.actionBtn a:hover {
+    transform: scale(105%);
+    box-shadow: 0 0 0 2px var(--base-variant), 0 0 0 3px var(--base-color);
+}
+
+.actionButton {
+    font-size: 16px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--base-variant);
+    background: var(--base-color);
+    transition: 0.3s;
+}
+
+.actionButton:hover {
+    transform: scale(105%);
+    box-shadow: 0 0 0 2px var(--base-variant), 0 0 0 3px var(--base-color);
+}
+
+.actionButton:hover {
+    transform: scale(110%);
+}
+
+input [type="checkbox"] {
+    width: 30px;
+    height: 30px;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 18px;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.dropdown-btn:hover {
+    background-color: #eee;
+}
+
+.dropdown-arrow {
+    font-size: 16px;
+    margin-left: auto;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    position: relative;
+    background-color: var(--base-variant);
+}
+
+.dropdown-content div {
+    display: flex;
+    margin: 4px 0;
+}
+
+.dropdown-content a {
+    padding: 14px 18px 14px 36px;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    color: var(--base-color);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--base-color);
+}
+
+.dropdown.open .dropdown-content {
+    display: flex;
+}
+
+.dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* NOTIFICATION */
+.notification-bell {
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.notification a {
+    text-decoration: none;
+    position: relative;
+}
+
+.notification i {
+    font-size: 28px;
+}
+
+.notification-count {
+    position: absolute;
+    top: 2px;
+    right: -4px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    font-family: "Inter", sans-serif;
+}
+
+.hidden {
+    display: hidden;
+}
+table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc, table.dataTable thead>tr>th.sorting_asc_disabled, table.dataTable thead>tr>th.sorting_desc_disabled, table.dataTable thead>tr>td.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>td.sorting_asc_disabled, table.dataTable thead>tr>td.sorting_desc_disabled {
+    cursor: pointer;
+    position: relative;
+    padding-right: 26px;
+}

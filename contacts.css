@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --base-color: #fff;
+    --base-variant: #0b0c18;
+    --text-color: #131313;
+}
+
+.darkmode {
+    --base-color: #121212;
+    --base-variant: #fff;
+    --text-color: #131313;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    background: var(--base-color);
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 200px;
+    height: 100%;
+    gap: 100px;
+}
+
+.top-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.top-left img {
+    width: 780px;
+    cursor: pointer;
+}
+
+.top-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* FORM */
+.form {
+    font-family: "Poppins", sans-serif;
+    width: 480px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 36px;
+    color: var(--text-color);
+    background: #FBFBFB;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.form-text {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    color: var(--text-color);
+    font-family: "roboto condensed", sans-serif;
+}
+
+.form-description p {
+    text-align: center;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.input-group {
+    position: relative;
+    margin: 18px 0;
+}
+
+::placeholder {
+    font-size: 18;
+    font-family: "poppins";
+}
+
+.input-group label {
+    display: block;
+    font-size: 18px;
+}
+
+.input-group input {
+    display: block;
+    width: 100%;
+    padding: 12px 8px;
+    border: 1px solid gray;
+    border-radius: 0.25rem;
+    font-size: 16px;
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+}
+
+.send-btn {
+    width: 100%;
+    height: 50px;
+    color: #f3f3f3;
+    text-align: center;
+    font-size: 16px;
+    font-family: "poppins";
+    border-radius: 0.25rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    margin: 6px 0 0 0;
+    background: #121212;
+    transition: 0.3s;
+}
+
+.buttons button:hover {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px #121212;
+}
+
+.text {
+    text-align: center;
+    margin: 6px 0 0;
+}
+
+.text a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.text a:hover {
+    text-decoration: underline;
+}
+
+.text p {
+    font-size: 16px;
+}
+
+/* NOTIFICATION */
+.alert {
+    display: none;
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1000;
+    padding: 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: "poppins";
+    color: #0b0c18;
+    background: #eee;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+/* INPUT ERROR */
+.error-message {
+    color: red;
+    font-size: 12px;
+    font-family: "poppins";
+}
+
+.show {
+    display: block;
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+    .container {
+        grid-template-rows: 1fr;
+        width: 100%;
+        height: 100vh;
+    }
+
+    main {
+        display: flex;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .top-left {
+        display: none;
+    }
+
+    .top-left img {
+        display: none;
+    }
+
+    .top-right {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* FORM */
+    .form {
+        width: 100%;
+        height: auto;
+        border-radius: unset;
+        padding: 36px;
+        box-shadow: none;
+        background: var(--base-color);
+    }
+
+    .form-text {
+        color: var(--base-variant);
+    }
+
+    .form-description p {
+        color: var(--base-variant);
+    }
+
+    .input-group {
+        position: relative;
+        margin: 10px 0;
+    }
+
+    .input-group label {
+        display: block;
+        font-size: 16px;
+        color: var(--base-variant);
+    }
+
+    .send-btn {
+        color: var(--base-color);
+        background: var(--base-variant);
+    }
+
+    .buttons button:hover {
+        box-shadow: 0 0 0 2px var(--base-color), 0 0 0 3px var(--base-variant);
+    }
+}

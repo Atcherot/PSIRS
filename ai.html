@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>Incident Reporting System - AI First Aid Assistance</title>
+    <link rel="stylesheet" href="ai.css" />
+    <script type="text/javascript" src="script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav>
+        <input type="checkbox" id="sidebar-active" />
+        <label for="sidebar-active" class="sidebar-open">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+
+        <label for="sidebar-active" id="overlay"></label>
+        <div class="links-container">
+          <label for="sidebar-active" class="sidebar-close">
+            <i class="fa-solid fa-xmark"></i>
+          </label>
+
+          <div class="navigations">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+          </div>
+        </div>
+
+        <div class="options">
+          <button id="theme-switch">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="40px"
+              viewBox="0 -960 960 960"
+              width="40px"
+              fill="#e3e3e3"
+            >
+              <path
+                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q10 0 20.5.67 10.5.66 24.17 2-37.67 31-59.17 77.83T444-660q0 90 63 153t153 63q53 0 99.67-20.5 46.66-20.5 77.66-56.17 1.34 12.34 2 21.84.67 9.5.67 18.83 0 150-105 255T480-120Z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="40px"
+              viewBox="0 -960 960 960"
+              width="40px"
+              fill="#e3e3e3"
+            >
+              <path
+                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-446.67H40v-66.66h160v66.66Zm720 0H760v-66.66h160v66.66ZM446.67-760v-160h66.66v160h-66.66Zm0 720v-160h66.66v160h-66.66ZM260-655.33l-100.33-97 47.66-49 96 100-43.33 46Zm493.33 496-97.66-100.34 45-45.66 99.66 97.66-47 48.34Zm-98.66-541.34 97.66-99.66 49 47L702-656l-47.33-44.67ZM159.33-207.33 259-305l46.33 45.67-97.66 99.66-48.34-47.66Z"
+              />
+            </svg>
+          </button>
+
+          <div class="admin-login">
+            <a href="index.html">Admin Login</a>
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        <div class="ai-page">
+          <div class="ai-pic">
+            <div>
+              <img src="images/ai-first-aid.png" alt="" />
+            </div>
+          </div>
+          <div class="ai-title">
+            <p>
+              Please follow this
+              <span>AI-Driven First Aid Assistance</span> while waiting for
+              help. By proceeding, you are requiring to provide your
+              <span>contact details</span> for further updates about your
+              report.
+            </p>
+          </div>
+         <div class="prompts">
+            <p id="aiMessage" class="ai-message"></p> <!-- Bagong p tag -->
+        </div>
+          <div class="proceed-button">
+            <a class="i-understand" href="contact-details.html">Proceed</a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("chatbot.html");
+        if (!response.ok) throw new Error("Failed to fetch chatbot.html");
+
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+        const chatMessage = doc.querySelector(".model p")?.textContent.trim();
+
+        if (chatMessage) {
+            // Ilagay ang message sa ibabaw ng textarea
+            document.getElementById("aiMessage").textContent = chatMessage;
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+});
+
+
+
+    </script>
+  </body>
+</html>

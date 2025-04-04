@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Public Incident Reporting System</title>
+    <link rel="stylesheet" href="contacts.css">
+    <script type="text/javascript" src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <div class="top-left">
+                <img src="images/fieldincident.png" alt="">
+            </div>
+            <div class="top-right">
+                <form class="form" id="contactForm">
+                    <div class="form-text">
+                        <h1>Contact Details</h1>
+                    </div>
+                    <div class="form-description">
+                        <p>Please provide your contact details for us to send updates on the incident.</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                        <p id="firstNameError" class="error-message"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                        <p id="lastNameError" class="error-message"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+63" maxlength="11" required>
+                        <p id="phoneError" class="error-message"></p>
+                    </div>
+
+                    <button type="submit" class="send-btn">Done</button>
+                    <div class="alert" id="submitSuccessAlert">Contact details submitted successfully!</div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const contactForm = document.getElementById('contactForm');
+
+        // Define the validateField function
+        function validateField(fieldId, errorId, errorMessage, validationFn) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(errorId);
+
+            if (validationFn(field.value)) {
+                errorElement.textContent = '';
+                return true;
+            } else {
+                errorElement.textContent = errorMessage;
+                return false;
+            }
+        }
+
+        // Validate the entire form
+        function validateForm() {
+            let isFormValid = true;
+
+            isFormValid = isFormValid && validateField(
+                'firstName',
+                'firstNameError',
+                'First Name is required',
+                value => value.length > 0
+            );
+
+            isFormValid = isFormValid && validateField(
+                'lastName',
+                'lastNameError',
+                'Last Name is required',
+                value => value.length > 0
+            );
+
+            isFormValid = isFormValid && validateField(
+                'phone',
+                'phoneError',
+                'Phone Number must be 11 digits',
+                value => /^[0-9]{11}$/.test(value)
+            );
+
+            return isFormValid;
+        }
+
+        // Handle form submission
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (validateForm()) {  // Call validation first
+                const formData = new FormData(contactForm);
+
+                fetch('php/save_contact2.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('submitSuccessAlert').classList.add('show');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+
+</body>
+
+</html>

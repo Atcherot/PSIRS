@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV Motion Detection</title>
+    <style>
+        #cctv-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .cctv {
+            position: relative;
+            border: 2px solid black;
+        }
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>CCTV Motion Detection</h1>
+    <div id="cctv-container">
+        <div class="cctv">
+            <img id="cctv1" src="http://192.168.8.100:8080/video" width="400" height="300">
+            <canvas id="canvas1" width="400" height="300"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const cctvs = [
+            { id: 'cctv1', canvasId: 'canvas1', lastFrame: null }
+        ];
+
+        function checkMotion(cctv) {
+            const img = document.getElementById(cctv.id);
+            const canvas = document.getElementById(cctv.canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            
+            if (cctv.lastFrame) {
+                let motionDetected = false;
+                for (let i = 0; i < frame.data.length; i += 4) {
+                    const diff = Math.abs(frame.data[i] - cctv.lastFrame.data[i]) > 20;
+                    if (diff) {
+                        motionDetected = true;
+                        break;
+                    }
+                }
+
+                if (motionDetected) {
+                    console.log('Motion detected on:', cctv.id);
+                    fetch('report_incident.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ camera: cctv.id, timestamp: new Date().toISOString() })
+                    });
+                }
+            }
+            cctv.lastFrame = frame;
+        }
+
+        setInterval(() => cctvs.forEach(checkMotion), 1000);
+    </script>
+</body>
+</html>
